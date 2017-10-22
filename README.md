@@ -1,5 +1,8 @@
 # 勾配ブースティングを利用した教師あり分かち書き
 
+C++用のモデル（データを入力すると、結果が返ってくるもの）が構築できるので、任意の言語、例えばRuby等でも分かち書きを利用できる様になります  
+
+
 ## 理論
 
 ## 前処理
@@ -44,3 +47,30 @@ $ python3 wakati.py --make_sparse2
 $ head -n 1000000 ./misc/download/dataset.txt > train
 $ tail -n 100000 ./misc/download/dataset.txt > test
 ```
+
+## LightGBMでの学習
+binary-classificationでの二値分類の問題としてみなします  
+具体的には、ある文字と文字の間に、分かち書きすべきかどうかの確率値を計算します  
+50%を超えると、分かち書きを有効にし、50%未満では分かち書きを行いません  
+
+有名な勾配ブースティングライブラリにはXGBoostとLightGBMとCatBoostなどがあるのですが、スパースマトリックスの扱いやすさからLightGBMを使います  
+
+### 1. LightGBMのインストール  
+cmakeでビルドとインストールできます（要：GNU make, gcc, cmake）
+```console
+$ git clone https://github.com/Microsoft/LightGBM
+$ cd LightGBM
+$ mkdir build
+$ cd build
+$ cmake ..
+$ make -j16
+$ sudo make install
+```
+これでlightgbmコマンドがシステムに追加されました  
+
+### 2. LightGBMで学習する
+学習に使うパラメータを記述したconfがあるので、必要に応じでパラメータを変更して用いてください  
+```console
+$ lightgbm config=train.conf
+```
+
