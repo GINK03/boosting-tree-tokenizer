@@ -46,9 +46,9 @@ if '--make_sparse' in sys.argv:
   open('./misc/download/idf_index.pkl', 'wb').write( pickle.dumps(idf_index) )
 
 if '--make_sparse2' in sys.argv:
-  idf_index = pickle.loads(open('idf_index.pkl', 'rb').read( ) )
-  f = open('dataset.txt', 'w')
-  for enum, line in enumerate( open('./dataset_raw.txt') ):
+  idf_index = pickle.loads(open('./misc/download/idf_index.pkl', 'rb').read( ) )
+  f = open('./misc/download/dataset.txt', 'w')
+  for enum, line in enumerate( open('./misc/download/dataset_raw.txt') ):
     line = line.strip()
     if enum%100000 == 0:
       print('now iter', enum, line)

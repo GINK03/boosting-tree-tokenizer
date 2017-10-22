@@ -9,9 +9,9 @@ if '--check' in sys.argv:
   for prob, orig in zip(probs,origs):
     print(prob, orig)
 
-if '--test_one' in sys.argv:
-  idf_index = pickle.loads(open('./idf_index.pkl', 'rb').read() )
-  for line in open('./reviews.json'):
+if '--test' in sys.argv:
+  idf_index = pickle.loads(open('./misc/download/idf_index.pkl', 'rb').read() )
+  for line in open('./misc/download/reviews.json'):
     obj = json.loads( line.strip() )
     title = obj['title']
     review = obj['review']
