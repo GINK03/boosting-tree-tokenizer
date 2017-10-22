@@ -7,7 +7,7 @@ import numpy as np
 
 if '--make_data' in sys.argv:
   m = MeCab.Tagger('-Owakati')
-  for line in open('./reviews.json'):
+  for line in open('./misc/download/reviews.json'):
     obj = json.loads( line )
     text = obj['review']
     terms = '_'.join( m.parse( text ).strip().split() )
@@ -31,7 +31,7 @@ if '--make_data' in sys.argv:
 
 if '--make_sparse' in sys.argv:
   idfs = set()
-  for enum, line in enumerate( open('./dataset_raw.txt') ):
+  for enum, line in enumerate( open('./misc/download/dataset_raw.txt') ):
     line = line.strip()
     if enum%100000 == 0:
       print('now iter', enum, line, 'size', len(idfs))
@@ -43,7 +43,7 @@ if '--make_sparse' in sys.argv:
   idf_index = {} 
   for index, idf in enumerate(list(idfs)):
     idf_index[idf] = index
-  open('idf_index.pkl', 'wb').write( pickle.dumps(idf_index) )
+  open('./misc/download/idf_index.pkl', 'wb').write( pickle.dumps(idf_index) )
 
 if '--make_sparse2' in sys.argv:
   idf_index = pickle.loads(open('idf_index.pkl', 'rb').read( ) )

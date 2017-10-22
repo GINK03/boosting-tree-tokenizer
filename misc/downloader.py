@@ -11,6 +11,10 @@ if not os.path.exists('download/dataset.txt'):
   os.system('wget {}/open/boosting-tree-tokenizer/dataset.txt'.format(domain))
   os.system('mv dataset.txt download/dataset.txt')
 
+if not os.path.exists('download/dataset_raw.txt'):
+  os.system('wget {}/open/boosting-tree-tokenizer/dataset_raw.txt'.format(domain))
+  os.system('mv dataset_raw.txt download/dataset_raw.txt')
+
 if not os.path.exists('download/reviews.json'):
   os.system('wget {}/open/boosting-tree-tokenizer/reviews.json'.format(domain))
   os.system('mv reviews.json download/reviews.json')
