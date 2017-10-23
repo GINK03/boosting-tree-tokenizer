@@ -101,6 +101,14 @@ $ python3 intractive.py --test
 
 ## Pure C++で辞書なしで形態素解析する
 
+## C++形式のモデルを出力する
+traon.confの以下のコメントアウトを外すと、C++で直接コンパイルできて判別できるモデルができあがあります  
+
+```console
+convert_model=gbdt_prediction.cpp
+kconvert_model_language=cpp
+```
+
 ### feature_index.pklのC++化
 pickle形式の特徴量の対応表はc++には読めないので、cppのファイルに変換します  
 ```console
