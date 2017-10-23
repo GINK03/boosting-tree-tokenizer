@@ -8,7 +8,18 @@ if '--check' in sys.argv:
   origs = [line.strip() for line in open('./test')]
   for prob, orig in zip(probs,origs):
     print(prob, orig)
-
+if '--make_cpp' in sys.argv:
+  idf_index = pickle.loads(open('./misc/download/idf_index.pkl', 'rb').read() )
+  pack = """ #include <string>
+  #include <map>
+  std::map<std::string, int> idf_index = { """
+  for idf,index in idf_index.items():
+    one = '  {"%s", %d},\n'%(idf.replace('\\','\\\\').replace('"','\\"'), index)
+    pack += one
+    #print(one)
+  pack += '};'
+  print(pack)
+  open('c++/idf_index.cpp','w').write( pack)
 if '--test' in sys.argv:
   idf_index = pickle.loads(open('./misc/download/idf_index.pkl', 'rb').read() )
   for line in open('./misc/download/reviews.json'):
@@ -18,9 +29,9 @@ if '--test' in sys.argv:
     chars = list(review)
     # slicing 
     data = []
-    for i in range(len(chars) - 8):
+    for i in range(len(chars) - 10):
       builder = "0.5 "
-      for index, char in enumerate(chars[i:i+8]):
+      for index, char in enumerate(chars[i:i+10]):
         keys = '%d%s'%(index,char)
         if idf_index.get(keys) is not None:
           builder  += str(idf_index.get(keys)) + ":1.0 " 
@@ -40,9 +51,9 @@ if '--test' in sys.argv:
     #print(probs)
     
     try:
-      for i in range(len(chars) - 8):
+      for i in range(len(chars) - 10):
         prob = probs[i] 
-        char = chars[i+3]
+        char = chars[i+4]
         print(char, end='')
         if prob > 0.5:
           print('/', end='') 

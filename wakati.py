@@ -9,7 +9,7 @@ if '--make_data' in sys.argv:
   m = MeCab.Tagger('-Owakati')
   for line in open('./misc/download/reviews.json'):
     obj = json.loads( line )
-    text = obj['review']
+    text = '********' + obj['review'] + '************'
     terms = '_'.join( m.parse( text ).strip().split() )
     #print( terms )
     for i in range(len(terms)-16):
@@ -19,13 +19,13 @@ if '--make_data' in sys.argv:
       if target != '_' and tail[1] == '_': continue
       #print(head, target, tail )
       if target != '_':
-        tail2 = tail.replace('_', '')[:5] 
-        head2 = head.replace('_', '')[-3:] + tail2[0]
+        tail2 = tail.replace('_', '')[:7] 
+        head2 = head.replace('_', '')[-4:] + tail2[0]
         print(head2, 'x', tail2[1:])
         continue
       if target == '_':
-        tail2 = tail.replace('_', '')[:4]
-        head2 = head.replace('_', '')[-4:]  
+        tail2 = tail.replace('_', '')[:6]
+        head2 = head.replace('_', '')[-5:]  
         print(head2, 'o', tail2)
         continue
 

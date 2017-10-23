@@ -1,5 +1,5 @@
- #include <string>
-  #include <map>
+#include <string>
+#include <map>
   std::map<std::string, int> idf_index = {   {"10‸", 0},
   {"7拂", 1},
   {"2廉", 2},
