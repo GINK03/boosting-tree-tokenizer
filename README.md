@@ -99,6 +99,16 @@ pickle形式の特徴量の対応表はc++には読めないので、cppのフ�
 ```console
 $ python3 intractive.py --make_cpp
 ```
+### C++のファイルのサンプルのコンパイル
+clang++のversion 5.0以上を要求しています(C++は最新のは使いやすいと思います)  
+```console
+$ c++
+$ make
+```
+### 実行
+```console
+$ ./a.out
+```
 
 ## ライセンス　
 MIT
