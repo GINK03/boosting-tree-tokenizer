@@ -25,7 +25,7 @@ if '--test' in sys.argv:
   for line in open('./misc/download/reviews.json'):
     obj = json.loads( line.strip() )
     title = obj['title']
-    review = obj['review']
+    review = '********' + obj['review'] + '**********'
     chars = list(review)
     # slicing 
     data = []
