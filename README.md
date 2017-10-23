@@ -8,9 +8,9 @@ C++用のモデル（データを入力すると、結果が返ってくるも�
 <div align="center">
   <img width="750px" src="https://user-images.githubusercontent.com/4949982/31882071-926d2d16-b820-11e7-810b-d40bd270cda7.png">
 </div>
-<dic align="center"> 図1. 問題設定 </div>
+<div align="center"> 図1. 問題設定 </div>
 
-この問題設定におけるベクトルを直列化して、スパースなベクトルとして表現すると、LIVSVM形式のフォーマットにすることができ、LightGBM, XGBoostなどで学習することが可能なフォーマットに変換できます  
+この問題設定におけるベクトルを直列化して、スパースなベクトルとして表現すると、[LIVSVM](https://user-images.githubusercontent.com/4949982/31882071-926d2d16-b820-11e7-810b-d40bd270cda7.png)形式のフォーマットにすることができ、LightGBM, XGBoostなどで学習することが可能なフォーマットに変換できます  
 
 ## 前処理
 githubのレポジトリには最初から学習済みのデータを用意していますが、自分で必要なデータを学習させる場合には以下のステップで行います  
