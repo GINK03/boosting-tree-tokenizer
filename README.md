@@ -92,5 +92,13 @@ $ python3 intractive.py --test
 入し/た/が/、/これ/が/凄い/情報量/だっ/た/。
 ```
 
+## Pure C++で辞書なしで形態素解析する
+
+### feature_index.pklのc++化
+pickle形式の特徴量の対応表はc++には読めないので、cppのファイルに変換します  
+```console
+$ python3 intractive.py --make_cpp
+```
+
 ## ライセンス　
 MIT
