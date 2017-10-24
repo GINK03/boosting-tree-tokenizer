@@ -31,30 +31,38 @@ if '--make_data' in sys.argv:
       print( ' '.join(head), target, ' '.join(tail), part[1] )
 
 if '--make_sparse' in sys.argv:
-  idfs = set()
-  for enum, line in enumerate( open('./misc/download/dataset_raw.txt') ):
+  aterms = set()
+  parts = set()
+  for enum, line in enumerate( open('./misc/download/dataset_parts_raw.txt') ):
     line = line.strip()
     if enum%100000 == 0:
-      print('now iter', enum, line, 'size', len(idfs))
-    flag = 0.0 if ' x ' in line else 1.0
-    line = line.replace(' x ', '').replace(' o ', '')
-    for index, char in enumerate(list(line)):
-      idf = '%d%s'%(index,char)
-      idfs.add(idf)
-  idf_index = {} 
-  for index, idf in enumerate(list(idfs)):
-    idf_index[idf] = index
-  open('./misc/download/idf_index.pkl', 'wb').write( pickle.dumps(idf_index) )
+      print('now iter', enum, line, 'size', len(aterms))
+    #if enum > 100000:
+    #  break
+    terms = line.split()
+    part = terms.pop()
+    [ aterms.add( term ) for term in terms ]
+    parts.add(part)
+
+  parts_index = {}
+  for index, part in enumerate(list(parts)): 
+    parts_index[part] = index
+  aterm_index = {}
+  for index, term in enumerate(list(aterms)): 
+    aterm_index[term] = index
+  open('./misc/download/parts_index.pkl', 'wb').write( pickle.dumps(parts_index) )
+  open('./misc/download/aterm_index.pkl', 'wb').write( pickle.dumps(aterm_index) )
 
 if '--make_sparse2' in sys.argv:
-  idf_index = pickle.loads(open('./misc/download/idf_index.pkl', 'rb').read( ) )
-  f = open('./misc/download/dataset.txt', 'w')
-  for enum, line in enumerate( open('./misc/download/dataset_raw.txt') ):
+  parts_index = pickle.loads(open('./misc/download/parts_index.pkl', 'rb').read( ) )
+  aterm_index = pickle.loads(open('./misc/download/aterm_index.pkl', 'rb').read( ) )
+  f = open('./misc/download/dataset_parts.txt', 'w')
+  for enum, line in enumerate( open('./misc/download/dataset_parts_raw.txt') ):
     line = line.strip()
     if enum%100000 == 0:
-      print('now iter', enum, line)
-    flag = 0.0 if ' x ' in line else 1.0
-    line = line.replace(' x ', '').replace(' o ', '')
-    sparse = ' '.join( ['%d:1.0'%idf_index['%d%s'%(index,char)] for index, char in enumerate(list(line))] )
-    data = '%0.2f %s'%(flag, sparse)
-    f.write(data+ '\n')
+      print('vetorizing now iter', enum, line)
+    terms = line.split()
+    part_index = parts_index[terms.pop()]
+    dataset = ' '.join( ['%d:%s'%(aterm_index[term], "1.0") for index, term in enumerate(terms) if aterm_index.get(term) is not None] )
+    dataset = str(part_index) + ' ' + dataset
+    f.write(dataset + '\n')
