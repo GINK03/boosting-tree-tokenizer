@@ -51,8 +51,8 @@ $ python3 wakati.py --make_sparse2
 #### 3. train, testデータの作成
 お使いのマシンのスペックに依存しますが、trainデータで100万, testデータで10万データセットを利用する際には、この様にしまします  
 ```console
-$ head -n 1000000 ./misc/download/dataset.txt > train
-$ tail -n 100000 ./misc/download/dataset.txt > test
+$ head -n 5000000 ./misc/download/dataset.txt > train
+$ tail -n 1000000 ./misc/download/dataset.txt > test
 ```
 
 ## LightGBMでの学習
