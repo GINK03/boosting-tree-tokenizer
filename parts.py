@@ -8,7 +8,9 @@ import numpy as np
 if '--make_data' in sys.argv:
   mm = MeCab.Tagger('-Ochasen')
   mw = MeCab.Tagger('-Owakati')
-  for line in open('./misc/download/reviews.json'):
+  for index, line in enumerate( open('./misc/download/reviews.json') ):
+    if index%10000 == 0:
+      print('now iter', index, file=sys.stderr)
     obj = json.loads( line )
     text = '********' + obj['review'] + '************'
     parts = mm.parse( text ).strip().split('\n') 
@@ -20,9 +22,9 @@ if '--make_data' in sys.argv:
     #print(terms)
     for i in range(len(terms)-10):
       try:
-        head = terms[i:i+5]
-        target = terms[i+5]
-        part = parts[i+5-1]
+        head = terms[i:i+4]
+        target = terms[i+4]
+        part = parts[i+4]
       except IndexError as e:
         continue
       if target != part[0]: 
