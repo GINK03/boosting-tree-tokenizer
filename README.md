@@ -48,21 +48,25 @@ $ python3 downloader.py
 分かち書きとしてありえないところにxが入ります  
 
 #### 2. スパースマトリックスの作成
-特徴量の作り方として、周辺の単語とその距離の二つの軸で独立な特徴量とするため、まともにやろうとすると、大変高次元化して今います.  
+特徴量の作り方として、周辺の文字、単語とその距離の二つの軸で独立な特徴量とするため、まともにやろうとすると、大変高次元化して今います.  
 そのため、スパースマトリックスとして表現するために、まず、特徴量に対してユニークなインデックスを付与します  
 ```console
 $ python3 wakati.py --make_sparse
+$ python3 parts.py --make_sparse
 ```
 付与したインデックスをもとに、スパースマトリックスを組み立てます  
 ```console
 $ python3 wakati.py --make_sparse2 
+$ python3 parts.py --make_sparse2
 ```
 
 #### 3. train, testデータの作成
 お使いのマシンのスペックに依存しますが、trainデータで100万, testデータで10万データセットを利用する際には、この様にしまします  
 ```console
 $ head -n 50000000 ./misc/download/dataset.txt > train
+$ head -n 3000000 ./misc/download/dataset_parts.txt > train_parts
 $ tail -n 10000000 ./misc/download/dataset.txt > test
+$ tail -n 100000 ./misc/download/dataset_parts.txt > test_parts
 ```
 
 ## LightGBMでの学習
@@ -89,9 +93,10 @@ $ sudo make install
 学習に使うパラメータを記述したconfがあるので、必要に応じでパラメータを変更して用いてください  
 ```console
 $ lightgbm config=train.conf
+$ lightgbm config=train.parts.conf
 ```
 
-## 学習したモデルで分かち書きをしてみる  
+## 学習したモデルで分かち書き、品詞推定をしてみる  
 
 映画.comさんのレビューをランダムサンプルして適当に分かち書きしてみています  
 ```console
@@ -108,6 +113,8 @@ $ python3 intractive.py --test
 - 今/に/なっ/て/、/あぁ/良い/映画/だっ/た/。/と/思っ/た/ので/レビュー/し/て/み/まし/た/。/命/より/大切なもの/は/あり/ます/。/
 - 大切なもの/と/の/思い出/が/消え/た/中/で/１/人/で/生きる/なんて/つら/すぎ/ます/。/改めて/、/それ/に/気づけ/て/良かっ/た/。/周り/の/人/を/大切/に/しよう/と/思う/映画/。
 ```
+
+TODO: 品詞推定の様子
 
 ## Pure C++で記述されたモデルを得る
 まだLightGBMの実験的な機能だということですが、C\+\+で記述されたモデルを出力可能です。  
