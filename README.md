@@ -130,7 +130,7 @@ $ python3 intractive.py --make_cpp
 
 ## 実装
 
-[https://github.com/GINK03/boosting-tree-tokenizer/:Embed]
+[https://github.com/GINK03/boosting-tree-tokenizer-sango:Embed]
 
 ## 感想とか印象とか
 このネタはもともと、何か論文書けこのやろうと詰められる機運が高まってきたので、何か自然言語処理で論文になるようなネタを探していた時にふと、勾配ブースティングの性質であればできるんじゃないのかな、しかもこの場合、辞書なしでできる、という気づきがあり、やってみました  
