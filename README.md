@@ -119,7 +119,7 @@ Pure C\+\+なので、C\+\+とバインディングできるRubyなどの言語�
 traon.confの以下のコメントアウトを外すと、C\+\+で直接コンパイルできて判別できるモデルができあがあります  
 ```console
 convert_model=gbdt_prediction.cpp
-kconvert_model_language=cpp
+convert_model_language=cpp
 ```
 
 ### feature_index.pklのC++化
