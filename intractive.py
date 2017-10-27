@@ -22,6 +22,8 @@ if '--make_cpp' in sys.argv:
   open('c++/idf_index.cpp','w').write( pack)
 if '--test' in sys.argv:
   idf_index = pickle.loads(open('./misc/download/idf_index.pkl', 'rb').read() )
+  ports_index = pickle.loads(open('./misc/download/parts_index.pkl','rb').read() )
+  aterm_index = pickle.loads(open('./misc/download/aterm_index.pkl','rb').read() )
   for line in open('./misc/download/reviews.json'):
     obj = json.loads( line.strip() )
     title = obj['title']
@@ -49,15 +51,23 @@ if '--test' in sys.argv:
     #for prob, orig in zip(probs,origs):
     #   print(prob, orig)
     #print(probs)
-    
+   
+    string_builder = ''
     try:
       for i in range(len(chars) - 10):
         prob = probs[i] 
         char = chars[i+4]
         print(char, end='')
+        string_builder += char
         if prob > 0.5:
           print('/', end='') 
+          string_builder += '/'
       print()
     except IndexError as e:
       print()
-     
+   
+    
+    print('string builder', string_builder)
+    for index,term in enumerate( string_builder.split('/') ):
+      key = '%d%s'%(index, term)
+      print( key, aterm_index.get(key) )

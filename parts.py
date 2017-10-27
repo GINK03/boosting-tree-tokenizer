@@ -43,7 +43,7 @@ if '--make_sparse' in sys.argv:
     #  break
     terms = line.split()
     part = terms.pop()
-    [ aterms.add( term ) for term in terms ]
+    [ aterms.add( '%d%s'%(index,term) ) for index, term in enumerate(terms) ]
     parts.add(part)
 
   parts_index = {}
@@ -65,6 +65,6 @@ if '--make_sparse2' in sys.argv:
       print('vetorizing now iter', enum, line)
     terms = line.split()
     part_index = parts_index[terms.pop()]
-    dataset = ' '.join( ['%d:%s'%(aterm_index[term], "1.0") for index, term in enumerate(terms) if aterm_index.get(term) is not None] )
+    dataset = ' '.join( ['%d:%s'%(aterm_index['%d%s'%(index,term)], "1.0") for index, term in enumerate(terms) if aterm_index.get('%d%s'%(index,term)) is not None] )
     dataset = str(part_index) + ' ' + dataset
     f.write(dataset + '\n')
